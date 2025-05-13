@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:testapp/details.dart';
 import 'package:testapp/g_store.dart';
-
+import 'package:testapp/game.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: GStore(),
+      home: Details(Game("lib/assets/fortnite.jpg", "Fortnite", 700)),
     );
   }
 }
