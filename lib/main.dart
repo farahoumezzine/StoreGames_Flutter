@@ -3,6 +3,7 @@ import 'package:testapp/details.dart';
 import 'package:testapp/g_store.dart';
 import 'package:testapp/game.dart';
 import 'package:testapp/library.dart';
+import 'package:testapp/signup.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Library(),
+      home: Signup(),
     );
   }
 }
