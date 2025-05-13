@@ -1,29 +1,29 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:testapp/customInputdecoration.dart';
-class Signup extends StatelessWidget{
+import 'package:shared_preferences/shared_preferences.dart';
 
- late String username, email, password, birthdate, address;
+class Signup extends StatelessWidget {
+  late String username, email, password, birthdate, address;
   GlobalKey<FormState> currentKey = GlobalKey();
   Signup({super.key});
 
-@override
+  @override
   Widget build(BuildContext context) {
-   return Scaffold(
-    appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: Colors.blue[400],
         title: Text(
           "Sign Up Gstore ESPRIM",
           style: TextStyle(color: Colors.white),
-          ),
-    ),
-body: Padding(padding: const EdgeInsets.all(10.0),
- child: Form(
-    key: currentKey,
-    child:ListView(
-        children: [
-           Image.asset("lib/assets/fortnite.jpg", width: 250),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Form(
+          key: currentKey,
+          child: ListView(
+            children: [
+              Image.asset("lib/assets/fortnite.jpg", width: 250),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
@@ -42,7 +42,7 @@ body: Padding(padding: const EdgeInsets.all(10.0),
                 ),
               ),
 
-               Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
                   decoration:
@@ -60,11 +60,10 @@ body: Padding(padding: const EdgeInsets.all(10.0),
                 ),
               ),
 
-
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
-                    obscureText: true,
+                  obscureText: true,
                   decoration:
                       Custominputdecoration(
                         "password",
@@ -75,14 +74,14 @@ body: Padding(padding: const EdgeInsets.all(10.0),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "password should not be empty";
-                    }else if (value!.length < 8) {
+                    } else if (value!.length < 8) {
                       return "password should have min 8 caracters";
                     }
                   },
                 ),
               ),
 
-                 Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: TextFormField(
                   decoration:
@@ -108,39 +107,35 @@ body: Padding(padding: const EdgeInsets.all(10.0),
                 ),
               ),
 
-
-               Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(vertical: 10.0),
                 child: Center(
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (currentKey.currentState!.validate()) {
                         currentKey.currentState!.save();
-                         // Navigate to GStore using named route
-                        Navigator.pushNamed(context, '/gstore');
 
-                        /*showDialog(
-                          context: context,
-                          builder: (context) {
-                            return (AlertDialog(
-                              title: Text("Sign up"),
-                              content: Text("user Added"),
-                            ));
-                          },
-                        );*/
+                        // Save credentials to SharedPreferences
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setString('username', username);
+                        await prefs.setString('password', password);
+
+                        // Navigate to GStore with username parameter
+                        Navigator.pushNamed(
+                          context,
+                          '/',
+                          arguments: username,
+                        );
                       }
                     },
                     child: Text("Submit"),
                   ),
                 ),
               ),
-
-
-        ],
-    ),
-  ),
-
-),
- 
-   );
-  }}
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

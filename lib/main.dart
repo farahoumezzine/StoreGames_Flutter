@@ -4,14 +4,11 @@ import 'package:testapp/g_store.dart';
 import 'package:testapp/game.dart';
 import 'package:testapp/library.dart';
 import 'package:testapp/signup.dart';
+import 'package:testapp/authentication.dart';
+import 'package:testapp/modifier_profile.dart';
+
 void main() {
-  runApp(MaterialApp(
-    initialRoute: '/',
-    routes: {
-      '/': (context) => Signup(),
-      '/gstore': (context) => GStore(), // Named route for GStore
-    },
-  ));
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -22,6 +19,23 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      initialRoute: '/',
+      onGenerateRoute: (settings) {
+        if (settings.name == '/gstore') {
+          final username = settings.arguments as String;
+          return MaterialPageRoute(
+            builder: (context) => GStore(username: username),
+          );
+        } else if (settings.name == '/signup') {
+          return MaterialPageRoute(builder: (context) => Signup());
+        } else if (settings.name == '/library') {
+          return MaterialPageRoute(builder: (context) => Library());
+        } else if (settings.name == '/profile') {
+          return MaterialPageRoute(builder: (context) => ModifierProfile());
+        } else {
+          return MaterialPageRoute(builder: (context) => Authentication());
+        }
+      },
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -40,7 +54,6 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: Signup(),
     );
   }
 }
