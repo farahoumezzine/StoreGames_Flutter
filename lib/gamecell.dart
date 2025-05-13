@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:testapp/game.dart';
-
+import 'package:testapp/details.dart';
 class Gamecell extends StatelessWidget {
   Game game;
   Gamecell(this.game, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => Details(game)),
+        );
+      },
+
+    child: Container(
       padding: EdgeInsets.all(8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -25,6 +33,8 @@ class Gamecell extends StatelessWidget {
           ),
         ],
       ),
+    ),
     );
+
   }
 }

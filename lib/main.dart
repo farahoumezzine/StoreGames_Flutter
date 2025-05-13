@@ -5,7 +5,13 @@ import 'package:testapp/game.dart';
 import 'package:testapp/library.dart';
 import 'package:testapp/signup.dart';
 void main() {
-  runApp(const MyApp());
+  runApp(MaterialApp(
+    initialRoute: '/',
+    routes: {
+      '/': (context) => Signup(),
+      '/gstore': (context) => GStore(), // Named route for GStore
+    },
+  ));
 }
 
 class MyApp extends StatelessWidget {

@@ -116,7 +116,10 @@ body: Padding(padding: const EdgeInsets.all(10.0),
                     onPressed: () {
                       if (currentKey.currentState!.validate()) {
                         currentKey.currentState!.save();
-                        showDialog(
+                         // Navigate to GStore using named route
+                        Navigator.pushNamed(context, '/gstore');
+
+                        /*showDialog(
                           context: context,
                           builder: (context) {
                             return (AlertDialog(
@@ -124,7 +127,7 @@ body: Padding(padding: const EdgeInsets.all(10.0),
                               content: Text("user Added"),
                             ));
                           },
-                        );
+                        );*/
                       }
                     },
                     child: Text("Submit"),
